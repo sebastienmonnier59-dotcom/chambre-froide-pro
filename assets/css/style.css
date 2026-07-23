@@ -40,10 +40,16 @@ header.site { background: var(--blanc); border-bottom: 1px solid var(--ligne); p
 .logo small { display: block; font-size: 11px; font-weight: 500; color: var(--gris); letter-spacing: .4px; }
 nav.menu { display: flex; gap: 4px; align-items: center; }
 nav.menu > div { position: relative; }
-nav.menu a.item { display: block; padding: 10px 13px; color: var(--encre); text-decoration: none; font-size: 15px; font-weight: 600; border-radius: 8px; }
+nav.menu a.item { display: block; white-space: nowrap; padding: 10px 13px; color: var(--encre); text-decoration: none; font-size: 15px; font-weight: 600; border-radius: 8px; }
 nav.menu a.item:hover { background: var(--glace); color: var(--bleu-acier); }
 .sub { display: none; position: absolute; top: 100%; left: 0; background: var(--blanc); border: 1px solid var(--ligne); border-radius: var(--radius); box-shadow: var(--shadow); min-width: 260px; padding: 8px; }
-nav.menu > div:hover .sub, nav.menu > div:focus-within .sub { display: block; }
+
+/* Sous-menus : survol reserve au desktop (sinon :focus-within empeche de replier sur mobile) */
+@media (min-width: 981px) {
+  nav.menu > div:hover > .sub,
+  nav.menu > div:focus-within > .sub { display: block; }
+  nav.menu > div > a.item::after { content: "▾"; font-size: .72em; margin-left: 6px; opacity: .55; vertical-align: middle; }
+}
 .sub a { display: block; padding: 9px 12px; text-decoration: none; color: var(--encre); font-size: 14.5px; border-radius: 7px; }
 .sub a:hover { background: var(--glace); }
 .btn { display: inline-block; background: var(--cta); color: #fff !important; text-decoration: none; font-weight: 700; padding: 12px 22px; border-radius: var(--radius); border: 0; cursor: pointer; font-size: 16px; transition: background .15s, transform .15s; }
