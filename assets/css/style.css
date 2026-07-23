@@ -146,7 +146,7 @@ table.prix td strong { color: var(--bleu-acier); }
 
 /* ---------- Footer ---------- */
 footer.site { background: var(--bleu-nuit); color: #b9cfdf; padding: 52px 0 26px; font-size: 14.5px; margin-top: 40px; }
-footer.site .cols { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr; gap: 34px; margin-bottom: 34px; }
+footer.site .cols { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr; gap: 28px; margin-bottom: 34px; }
 footer.site h4 { color: #fff; font-size: 15px; margin-bottom: 12px; }
 footer.site a { color: #b9cfdf; text-decoration: none; display: block; padding: 3px 0; }
 footer.site a:hover { color: #fff; }
