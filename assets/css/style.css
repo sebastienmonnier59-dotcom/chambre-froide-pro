@@ -111,7 +111,7 @@ figure.illus figcaption { background: var(--bleu-nuit); color: #cfe2f2; font-siz
 .table-wrap { overflow-x: auto; }
 table.prix { width: 100%; border-collapse: collapse; background: var(--blanc); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
 table.prix th { background: var(--bleu-nuit); color: #fff; text-align: left; padding: 14px 18px; font-size: 15px; }
-table.prix td { padding: 13px 18px; border-bottom: 1px solid var(--ligne); font-size: 15.5px; }
+table.prix td { color: var(--encre); padding: 13px 18px; border-bottom: 1px solid var(--ligne); font-size: 15.5px; }
 table.prix tr:last-child td { border-bottom: 0; }
 table.prix td strong { color: var(--bleu-acier); }
 
