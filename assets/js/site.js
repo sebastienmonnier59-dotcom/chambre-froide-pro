@@ -9,8 +9,31 @@ document.addEventListener("DOMContentLoaded", function () {
   var burger = document.querySelector(".burger");
   var menu = document.querySelector("nav.menu");
   if (burger && menu) burger.addEventListener("click", function () { menu.classList.toggle("open"); });
+  initSousMenus();
   initDevis();
 });
+
+/* Sous-menus repliables (mobile) : une flèche par entrée, fermée par défaut */
+function initSousMenus() {
+  var menu = document.querySelector("nav.menu");
+  if (!menu) return;
+  Array.prototype.forEach.call(menu.children, function (grp) {
+    if (grp.tagName !== "DIV" || !grp.querySelector(".sub")) return;
+    var t = document.createElement("button");
+    t.type = "button";
+    t.className = "sub-toggle";
+    t.setAttribute("aria-label", "Afficher ou masquer le sous-menu");
+    t.setAttribute("aria-expanded", "false");
+    t.textContent = "▾";
+    t.addEventListener("click", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      var ouvert = grp.classList.toggle("open");
+      t.setAttribute("aria-expanded", ouvert ? "true" : "false");
+    });
+    grp.appendChild(t);
+  });
+}
 
 /* Simulateur de devis multi-étapes */
 function initDevis() {
@@ -21,11 +44,17 @@ function initDevis() {
   var data = { site: SITE_ID, page: location.pathname };
   var idx = 0;
 
-  function show(i) {
+  /* scroll : jamais au chargement (sinon on saute le titre de la page),
+     et décalé sous le header collant lors des changements d'étape */
+  function show(i, avecScroll) {
     idx = i;
     steps.forEach(function (s, n) { s.classList.toggle("on", n === i); });
     if (bar) bar.style.width = ((i + 1) / steps.length) * 100 + "%";
-    box.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (avecScroll === false) return;
+    var header = document.querySelector("header.site");
+    var marge = (header ? header.offsetHeight : 80) + 16;
+    var y = box.getBoundingClientRect().top + window.pageYOffset - marge;
+    window.scrollTo({ top: y < 0 ? 0 : y, behavior: "smooth" });
   }
 
   /* Choix cliquables : enregistre la valeur et passe à l'étape suivante */
@@ -65,5 +94,5 @@ function initDevis() {
       });
   });
 
-  show(0);
+  show(0, false);
 }

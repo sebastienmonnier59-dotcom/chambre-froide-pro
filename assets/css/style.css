@@ -52,6 +52,7 @@ nav.menu > div:hover .sub, nav.menu > div:focus-within .sub { display: block; }
 .btn.ghost:hover { background: var(--glace); }
 .btn.big { padding: 16px 30px; font-size: 18px; }
 .burger { display: none; background: none; border: 0; font-size: 26px; cursor: pointer; color: var(--bleu-nuit); }
+.sub-toggle { display: none; }
 
 /* ---------- Hero ---------- */
 .hero { background: linear-gradient(115deg, var(--bleu-nuit) 0%, var(--bleu-acier) 60%, var(--bleu-vif) 100%); color: #fff; padding: 64px 0 72px; position: relative; overflow: hidden; }
@@ -121,7 +122,7 @@ table.prix td strong { color: var(--bleu-acier); }
 .cta-band p { color: #dcebf7; }
 
 /* ---------- Formulaire devis (simulateur) ---------- */
-.devis-box { max-width: 720px; margin: 0 auto; background: var(--blanc); border-radius: 16px; box-shadow: var(--shadow); padding: 34px; }
+.devis-box { max-width: 720px; margin: 0 auto; background: var(--blanc); border-radius: 16px; box-shadow: var(--shadow); padding: 34px; scroll-margin-top: 130px; }
 .progress { height: 8px; background: var(--glace-2); border-radius: 100px; margin-bottom: 28px; overflow: hidden; }
 .progress > div { height: 100%; background: linear-gradient(90deg, var(--bleu-vif), var(--cta)); width: 20%; transition: width .3s; }
 .f-step { display: none; }
@@ -160,9 +161,16 @@ body.landing .hero { padding: 46px 0 56px; }
 @media (max-width: 980px) {
   .hero .container, .grid-3, .grid-2, .steps, footer.site .cols { grid-template-columns: 1fr; }
   .hero h1 { font-size: 31px; }
-  nav.menu { display: none; position: absolute; top: 100%; left: 0; right: 0; background: var(--blanc); flex-direction: column; align-items: stretch; padding: 12px; border-bottom: 1px solid var(--ligne); box-shadow: var(--shadow); }
+  nav.menu { display: none; position: absolute; top: 100%; left: 0; right: 0; background: var(--blanc); flex-direction: column; align-items: stretch; padding: 12px; border-bottom: 1px solid var(--ligne); box-shadow: var(--shadow); max-height: calc(100vh - 120px); overflow-y: auto; }
   nav.menu.open { display: flex; }
-  .sub { position: static; display: block; box-shadow: none; border: 0; padding-left: 18px; }
+  nav.menu > div { position: relative; }
+  /* sous-menus repliés par défaut, ouverts par la flèche */
+  .sub { position: static; display: none; box-shadow: none; border: 0; border-left: 3px solid var(--glace-2); margin: 0 0 6px 14px; padding: 2px 0 2px 10px; }
+  nav.menu > div.open > .sub { display: block; }
+  .sub-toggle { display: block; position: absolute; right: 2px; top: 0; width: 48px; height: 44px; background: none; border: 0; font-size: 17px; line-height: 1; color: var(--bleu-acier); cursor: pointer; transition: transform .2s; }
+  nav.menu > div.open > .sub-toggle { transform: rotate(180deg); }
+  nav.menu a.item { padding-right: 54px; }
+  nav.menu > a.btn { margin-top: 8px; text-align: center; }
   .burger { display: block; }
   .choices { grid-template-columns: 1fr; }
   section { padding: 44px 0; }
