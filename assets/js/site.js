@@ -13,24 +13,31 @@ document.addEventListener("DOMContentLoaded", function () {
   initDevis();
 });
 
-/* Sous-menus repliables (mobile) : une flèche par entrée, fermée par défaut */
+/* Sous-menus repliables (mobile) : toute la ligne bascule le sous-menu.
+   Sur desktop, le survol CSS gere l'ouverture et le lien navigue normalement. */
 function initSousMenus() {
   var menu = document.querySelector("nav.menu");
   if (!menu) return;
+  function estMobile() { return window.matchMedia("(max-width: 980px)").matches; }
   Array.prototype.forEach.call(menu.children, function (grp) {
     if (grp.tagName !== "DIV" || !grp.querySelector(".sub")) return;
+    var lien = grp.querySelector("a.item");
     var t = document.createElement("button");
     t.type = "button";
     t.className = "sub-toggle";
     t.setAttribute("aria-label", "Afficher ou masquer le sous-menu");
     t.setAttribute("aria-expanded", "false");
     t.textContent = "▾";
-    t.addEventListener("click", function (e) {
+    function bascule(e) {
+      if (!estMobile()) return;          /* desktop : comportement normal */
       e.preventDefault();
       e.stopPropagation();
       var ouvert = grp.classList.toggle("open");
       t.setAttribute("aria-expanded", ouvert ? "true" : "false");
-    });
+      t.blur();
+    }
+    t.addEventListener("click", bascule);
+    if (lien) lien.addEventListener("click", bascule);
     grp.appendChild(t);
   });
 }
